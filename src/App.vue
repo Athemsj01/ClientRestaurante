@@ -11,10 +11,10 @@
       <v-row class= "mt-5">
 
       <v-spacer></v-spacer>
+        <!--<router-link :to="{name: 'Home'}" class="mr-5">Menu</router-link>-->
+        <a href="https://nandokori12.000webhostapp.com/index.php" class="mr-5">Login</a>
 
-        <router-link :to="{name: 'Home'}" class="mr-5">Menu</router-link>
-
-        <router-link :to="{name: 'Mesero'}" class="mr-5">Mesero</router-link>
+        <router-link :to="{name: 'Mesero'}" class="mr-5">Meseros</router-link>
 
       <v-spacer></v-spacer>
 
