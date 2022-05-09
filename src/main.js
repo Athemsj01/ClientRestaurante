@@ -11,8 +11,23 @@ import VueAxios from 'vue-axios';
 
 Vue.config.productionTip = false
 
-Vue.use(VueAxios, axios);
-axios.defaults.baseURL = 'http://localhost:3000/';
+import {auth} from './firebase'
+
+auth.onAuthStateChanged(user => {
+  if(user){
+    console.log(user)
+    const detectoUsuario = {
+      email: user.email,
+      uid: user.id
+    }
+    store.dispatch('detectarUsuario', detectoUsuario)
+  }else{
+    console.log(user)
+    store.dispatch('detectarUsuario', user)
+  }
+
+  Vue.use(VueAxios, axios);
+  axios.defaults.baseURL = 'http://localhost:3000/';
 
 new Vue({
   router,
@@ -20,3 +35,7 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+})
+
+

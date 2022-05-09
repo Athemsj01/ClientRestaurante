@@ -6,6 +6,7 @@
       :items-per-page="5"
     >
     <template v-slot:top>
+      <h1>Ruta Protegida</h1>
       <v-toolbar flat>
         <v-toolbar-title>Meseros</v-toolbar-title>
         <v-spacer></v-spacer>
