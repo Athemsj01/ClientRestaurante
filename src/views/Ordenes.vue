@@ -23,10 +23,7 @@
         <v-icon @click="agregar_bebida(item)" small color="green" class="mr-5">
          fas fa-wine-bottle
         </v-icon>
-        <v-icon @click="detalle_orden_comida(item)" small color="green" class="mr-5">
-         fas fa-eye
-        </v-icon>
-        <v-icon @click="detalle_orden_bebida(item)" small color="primary" class="mr-5">
+        <v-icon @click="detalle_orden_comida(item)+detalle_orden_bebida(item)" small color="green" class="mr-5">
          fas fa-eye
         </v-icon>
       </template>
@@ -159,9 +156,15 @@
                 <v-col cols="6">
                   <v-text-field label="Platillo" v-model="orden.ord_comida" disabled >
                   </v-text-field>
-                </v-col>
-                <v-col cols="3">
                   <v-text-field label="Cantidad" v-model="orden.ord_cantidad_platos" disabled >
+                  </v-text-field>
+                </v-col>
+              </row>
+              <row v-for="(orde,index) in ord_detail_drink" v-bind:key="index">
+                <v-col cols="6">
+                  <v-text-field label="Bebida" v-model="orde.ord_bebidas" disabled >
+                  </v-text-field>
+                  <v-text-field label="Cantidad" v-model="orde.ord_cantidad_bebidas" disabled >
                   </v-text-field>
                 </v-col>
               </row>
@@ -171,31 +174,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-dialog v-model='beb_dialog' max-width="500px">
-        <v-card>
-          <v-card-title>
-            Orden Completa
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-                <row v-for="(orde,index) in ord_detail_drink" v-bind:key="index">
-                  <v-col cols="6">
-                  <v-text-field label="Bebida" v-model="orde.ord_bebidas" disabled >
-                  </v-text-field>
-                  </v-col>
-                  <v-col cols="3">
-                  <v-text-field label="Cantidad" v-model="orde.ord_cantidad_bebidas" disabled >
-                  </v-text-field>
-                  </v-col>
-              </row>
-            </v-container>
-          </v-card-text> 
-          <v-card-actions>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      
     </v-container>
 </template>
 
