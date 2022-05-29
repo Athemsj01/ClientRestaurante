@@ -14,6 +14,8 @@
         
         <router-link :to="{name: 'Inicio'}" v-if="existeUsuario" class="mr-5">Inicio</router-link>
         <router-link :to="{name: 'Mesero'}" v-if="existeUsuario" class="mr-5">Meseros</router-link>
+        <router-link :to="{name: 'Menu'}" v-if="existeUsuario" class="mr-5">Menu</router-link>
+        <router-link :to="{name: 'Ordenes'}" v-if="existeUsuario" class="mr-5">Ordenes</router-link>
         <router-link :to="{name: 'Registro'}" v-if="!existeUsuario" class="mr-5">Registro</router-link>
         <router-link :to="{name: 'Login'}" v-if="!existeUsuario" class="mr-5">Login</router-link>
         <button @click="cerrarSesion" v-if="existeUsuario" >Cerrar Sesion</button>
@@ -31,7 +33,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters} from "vuex"
 export default {
   name: 'App',
 

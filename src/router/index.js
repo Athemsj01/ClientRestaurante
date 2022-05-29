@@ -9,12 +9,25 @@ const routes = [
   {
     path: '/inicio',
     name: 'Inicio',
-    component: () => import('../views/Inicio.vue')
+    component: () => import('../views/Inicio.vue'),
+    meta: { requiresAuth: true}
   },
   {
     path: '/Mesero',
     name: 'Mesero',
     component: () => import('../views/Mesero.vue'),
+    meta: { requiresAuth: true}
+  },
+  {
+    path: '/menu',
+    name: 'Menu',
+    component: () => import('../views/Menu.vue'),
+    meta: { requiresAuth: true}
+  },
+  {
+    path: '/ordenes',
+    name: 'Ordenes',
+    component: () => import('../views/Ordenes.vue'),
     meta: { requiresAuth: true}
   },
   {
