@@ -72,4 +72,5 @@ export default {
   justify-content: center;
   min-height: 100vh;
 }
+
 </style>
