@@ -1,25 +1,47 @@
 <template>
     <div>
-        <h1>Registro de usuarios</h1>
-        <form @submit.prevent="crearUsuario({email: email, password: pass1})">
-        <input 
-            type="email"
-            placeholder="Ingrese su correo"
-            v-model="email"
-        >
-        <input 
-            type="password"
-            placeholder="Ingrese su contraseña"
-            v-model="pass1"
-        >
-        <input 
-            type="password"
-            placeholder="Repita su contraseña"
-            v-model="pass2"
-        >
-        <button type="submit" :disabled='!desactivar'>Registrar</button>
-        </form>
-        <p>{{error}}</p>
+        <div class="card abs-center">
+            <div class="card-body">
+                <form @submit.prevent="crearUsuario({email: email, password: pass1})" class="form">
+                    <div class="card">
+                        <div class="card-header bg-light text-dark fw-bold ">
+                            Inicio de Sesion
+                        </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input 
+                                    type="email"
+                                    placeholder="Ingrese su email"
+                                    v-model="email"
+                                    class="form-control mb-2"
+                                >
+                                </div>
+                                <div class="form-group">
+                                    <input 
+                                    type="password"
+                                    placeholder="Ingrese contraseña"
+                                    v-model="pass1"
+                                    class="form-control mb-2"
+                                 >
+                                </div>
+                                <div class="form-group">
+                                    <input 
+                                    type="password"
+                                    placeholder="Repita su contraseña"
+                                    v-model="pass2"
+                                    class="form-control mb-2"
+                                >
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" :disabled='!desactivar' class="btn btn-primary">Registrar</button>
+                                </div>
+                                
+                            </div>
+                    </div>
+                </form>
+                <p>{{error}}</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -48,3 +70,14 @@ export default {
     }
 }
 </script>
+<style>
+.form {
+  width: 650px;
+}
+.abs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+</style>
