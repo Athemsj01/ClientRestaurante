@@ -2,41 +2,34 @@
     <div>
         <div class="card abs-center">
             <div class="card-body">
-                <form @submit.prevent="crearUsuario({email: email, password: pass1})" class="form">
-                    <div class="card">
+                <form @submit.prevent="IngresoUsuario({email: email, password: pass})" class="form">
+                <div class="card">
                         <div class="card-header bg-light text-dark fw-bold ">
                             Inicio de Sesion
                         </div>
-                            <div class="card-body">
+                        <div class="card-body">
+                            
                                 <div class="form-group">
                                     <input 
                                     type="email"
                                     placeholder="Ingrese su email"
                                     v-model="email"
                                     class="form-control mb-2"
-                                >
+                                    >
                                 </div>
                                 <div class="form-group">
                                     <input 
                                     type="password"
                                     placeholder="Ingrese contraseña"
-                                    v-model="pass1"
+                                    v-model="pass"
                                     class="form-control mb-2"
-                                 >
+                                    >
                                 </div>
                                 <div class="form-group">
-                                    <input 
-                                    type="password"
-                                    placeholder="Repita su contraseña"
-                                    v-model="pass2"
-                                    class="form-control mb-2"
-                                >
+                                    <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
                                 </div>
-                                <div class="form-group">
-                                    <button type="submit" :disabled='!desactivar' class="btn btn-primary">Registrar</button>
-                                </div>
-                                
-                            </div>
+                            
+                        </div>
                     </div>
                 </form>
                 <p>{{error}}</p>
