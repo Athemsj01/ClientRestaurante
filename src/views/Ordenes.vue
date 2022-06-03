@@ -23,7 +23,7 @@
         <v-icon @click="agregar_bebida(item)" small color="green" class="mr-5">
          fas fa-wine-bottle
         </v-icon>
-        <v-icon @click="detalle_orden_comida(item)+detalle_orden_bebida(item)" small color="green" class="mr-5">
+        <v-icon @click="detalle_orden_comida(item)+detalle_orden_bebida(item)+total_de_orden(item)" small color="green" class="mr-5">
          fas fa-eye
         </v-icon>
       </template>
@@ -153,21 +153,33 @@
           <v-card-text>
             <v-container>
               <row v-for="(orden,index) in ord_detail_food" v-bind:key="index">
-                <v-col cols="6">
-                  <v-text-field label="Platillo" v-model="orden.ord_comida" disabled >
-                  </v-text-field>
-                  <v-text-field label="Cantidad" v-model="orden.ord_cantidad_platos" disabled >
-                  </v-text-field>
+                <v-col cols="12">
+                  <v-text-field
+                      label='Comida'
+                      v-model=" orden.ord_comida + ' : ' + orden.ord_cantidad_platos + ' >  ' + ' $ '+ orden.precio_comida"
+                      disabled
+                  ></v-text-field>
                 </v-col>
               </row>
               <row v-for="(orde,index) in ord_detail_drink" v-bind:key="index">
-                <v-col cols="6">
-                  <v-text-field label="Bebida" v-model="orde.ord_bebidas" disabled >
-                  </v-text-field>
-                  <v-text-field label="Cantidad" v-model="orde.ord_cantidad_bebidas" disabled >
-                  </v-text-field>
+                <v-col cols="12">
+                  <v-text-field
+                      label='Bebida'
+                      v-model=" orde.ord_bebidas + ' : ' + orde.ord_cantidad_bebidas + ' >  ' + '$ '+ orde.precio_bebida"
+                      disabled
+                  ></v-text-field>
                 </v-col>
               </row>
+                <v-row v-for='(orden,index) in total_orden' v-bind:key='index'
+                    >
+                    <v-col cols='12'>
+                        <v-text-field
+                            label='Total'
+                            v-model="'$ ' + orden.total + ' MXN (INCLUYE IVA)'"
+                            disabled
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
             </v-container>
           </v-card-text>
           <v-card-actions>
@@ -204,6 +216,7 @@ export default {
         bebi_menube_id: '',
         ord_detail_food: [],
         ord_detail_drink: [],
+        total_orden:[],
 
 
         n1_dialog: false,
@@ -288,7 +301,7 @@ export default {
         api_data.data.forEach((item) => {
           this.platillos.push({
             text: item.menuco_nombre,
-            value: item.menuco_id
+            value: item.menuco_id,
           });
         });
       },
@@ -298,7 +311,7 @@ export default {
         api_data.data.forEach((item) => {
           this.bebidas.push({
             text: item.menube_nombre,
-            value: item.menube_id
+            value: item.menube_id,
           });
         });
       },
@@ -357,6 +370,11 @@ export default {
         this.beb_dialog =true;
         const api_data = await this.axios.get('/ordenes/leer_detalles_bebida/' + item.ord_id.toString());
         this.ord_detail_drink = api_data.data;
+      },
+      async total_de_orden(item){ //para mostrar datos
+        this.beb_dialog =true;
+        const api_data = await this.axios.get('/ordenes/total_orden/' + item.ord_id.toString());
+        this.total_orden = api_data.data;
       },
     }
 }
