@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <h1>Ruta Protegida</h1>
-        <p>{{usuario.email}}</p>
+    <div class="container">
+        <h1 class="text-center text-color white">BIENVENIDO!
+        <br><br>
+        {{usuario.email}}
+        </h1>
     </div>
 </template>
 
