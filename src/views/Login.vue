@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="card abs-center">
+        <br><br><br>
+        <div class="card abs-center" style="background-color: #33475b;">
             <div class="card-body">
                 <form @submit.prevent="IngresoUsuario({email: email, password: pass})" class="form">
                 <div class="card">
@@ -28,7 +29,7 @@
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
                                 </div>
-                            
+                            <router-link :to="{name: 'Registro'}" v-if="!existeUsuario">¿No tienes una cuenta? Registrate Aqui!</router-link>
                         </div>
                     </div>
                 </form>
@@ -57,7 +58,7 @@ export default {
 </script>
 <style>
 .form {
-  width: 650px;
+  width: 800px;
 }
 .abs-center {
   display: flex;
@@ -65,5 +66,4 @@ export default {
   justify-content: center;
   min-height: 100vh;
 }
-
 </style>
