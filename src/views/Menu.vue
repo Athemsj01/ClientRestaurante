@@ -38,8 +38,11 @@
               </v-row>
               <v-row>
                 <v-col cols='6'>
-                  <v-text-field v-model="nuevo_platillo.menuco_categoria" label='Categoria'>
-                  </v-text-field>
+                  <v-select 
+                  :items="items"
+                  v-model="nuevo_platillo.menuco_categoria" 
+                  label='Categoria'>
+                  </v-select>
                 </v-col>
               </v-row>
             </v-container>
@@ -90,8 +93,11 @@
               </v-row>
               <v-row>
                 <v-col cols='6'>
-                  <v-text-field v-model="nueva_bebida.menube_categoria" label='Categoria'>
-                  </v-text-field>
+                  <v-select 
+                  :items="items"
+                  v-model="nueva_bebida.menube_categoria" 
+                  label='Categoria'>
+                  </v-select>
                 </v-col>
               </v-row>
             </v-container>
@@ -118,6 +124,8 @@
     
     data () {
       return {
+        items: ['Ensaladas','Sopa','Carnes', 'Mariscos', 'Desayuno'], //Para seleccionar categoria de comida
+        items: ['REFRESCO','AGUA','ALCOHOL'], //Para seleccionar categoria de bebida
         encabezadoComida: [
           { text: 'Identificador',align: 'start',sortable: false,value: 'menuco_id'},
           { text: 'Nombre', value: 'menuco_nombre' },
