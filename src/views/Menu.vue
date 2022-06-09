@@ -39,7 +39,7 @@
               <v-row>
                 <v-col cols='6'>
                   <v-select 
-                  :items="items"
+                  :items="item"
                   v-model="nuevo_platillo.menuco_categoria" 
                   label='Categoria'>
                   </v-select>
@@ -124,7 +124,7 @@
     
     data () {
       return {
-        items: ['Ensaladas','Sopa','Carnes', 'Mariscos', 'Desayuno'], //Para seleccionar categoria de comida
+        item: ['Ensaladas','Sopa','Carnes', 'Mariscos', 'Desayuno'], //Para seleccionar categoria de comida
         items: ['REFRESCO','AGUA','ALCOHOL'], //Para seleccionar categoria de bebida
         encabezadoComida: [
           { text: 'Identificador',align: 'start',sortable: false,value: 'menuco_id'},
