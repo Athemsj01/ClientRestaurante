@@ -13,7 +13,7 @@
       </v-toolbar>
 
     </template>
-    <template v-slot:[`item.actions`]="{item}">
+      <template v-slot:[`item.actions`]="{item}">
         <v-icon @click="eliminar_orden(item)" small color="error" class="mr-5">
          fas fa-trash-alt
         </v-icon>
@@ -23,7 +23,7 @@
         <v-icon @click="agregar_bebida(item)" small color="green" class="mr-5">
          fas fa-wine-bottle
         </v-icon>
-        <v-icon @click="detalle_orden_comida(item)+detalle_orden_bebida(item)+total_de_orden(item)" small color="green" class="mr-5">
+        <v-icon @click="detalle_orden(item)+detalle_orden_comida(item)+detalle_orden_bebida(item)+total_de_orden(item)" small color="green" class="mr-5">
          fas fa-eye
         </v-icon>
       </template>
@@ -73,10 +73,6 @@
                   ></v-date-picker>
                 </v-menu>
               </v-col>
-              <v-col cols='6'>
-                  <v-text-field v-model="nueva_orden.ord_pago" label='Pago' type="Number">
-                  </v-text-field>
-                </v-col>
             </v-row>
             </v-container>
           </v-card-text>
@@ -175,7 +171,7 @@
                     <v-col cols='12'>
                         <v-text-field
                             label='Total'
-                            v-model="'$ ' + orden.total + ' MXN (INCLUYE IVA)'"
+                            v-model="'  $ ' + orden.total + ' MXN + IVA'"
                             disabled
                         ></v-text-field>
                     </v-col>
@@ -183,6 +179,50 @@
             </v-container>
           </v-card-text>
           <v-card-actions>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model='factura_dialog' max-width="500px">
+          <v-card>
+          <v-card-title>
+            FACTURA
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <row v-for="(orden,index) in ord_detail_food" v-bind:key="index">
+                <v-col cols="12">
+                  <v-text-field
+                      label='Comida'
+                      v-model=" orden.ord_comida + ' : ' + orden.ord_cantidad_platos + ' >  ' + ' $ '+ orden.precio_comida"
+                      disabled
+                  ></v-text-field>
+                </v-col>
+              </row>
+              <row v-for="(orde,index) in ord_detail_drink" v-bind:key="index">
+                <v-col cols="12">
+                  <v-text-field
+                      label='Bebida'
+                      v-model=" orde.ord_bebidas + ' : ' + orde.ord_cantidad_bebidas + ' >  ' + '$ '+ orde.precio_bebida"
+                      disabled
+                  ></v-text-field>
+                </v-col>
+              </row>
+                <v-row v-for='(orden,index) in total_orden' v-bind:key='index'
+                    >
+                    <v-col cols='12'>
+                        <v-text-field
+                            label='Total'
+                            v-model="'  $ ' + orden.total + ' MXN + IVA'"
+                            disabled
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="success" @click="guardar_factura(item)">Pagó</v-btn>
+            <v-btn color="error" @click="cancelar()">Esperar...</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -197,11 +237,11 @@ export default {
     data () {
       return {
         encabezado: [
-          { text: 'Identificador',align: 'start',sortable: false,value: 'ord_id'},
+          { text: 'Identificador',align: 'start',sortable: true,value: 'ord_id'},
           { text: 'Mesa', value: 'ord_mesa_id' },
           { text: 'Mesero', value: 'ord_mese_nombre' },
           { text: 'Fecha de Orden', value: 'ord_fecha' },
-          { text: 'Pago', value: 'ord_pago' },
+          { text: 'Pago', value: 'ord_factura' },
           { text: 'Acciones', value: 'actions'}
 
         ],
@@ -221,6 +261,7 @@ export default {
 
         n1_dialog: false,
         comida_dialog: false,
+        factura_dialog: false,
         bebida_dialog: false,
         p_dialog: false,
         beb_dialog: false,
@@ -230,7 +271,6 @@ export default {
           ord_mesa_id: '',
           ord_mese_id: '',
           ord_fecha: '',
-          ord_pago: '',
 
         },
       }
@@ -265,6 +305,7 @@ export default {
         this.n1_dialog=false;
         this.ali_ord=[];
         this.comida_dialog=false;
+        this.factura_dialog=false;
         this.beb_ord=[];
         this.bebida_dialog=false;
       },
@@ -359,20 +400,19 @@ export default {
         });
         this.cancelar();
       },
-
       //DETALLES DE LA ORDEN
-      async detalle_orden_comida(item){ //para mostrar datos
+      async detalle_orden(){ //para mostrar datos
         this.p_dialog =true;
+      },
+      async detalle_orden_comida(item){ //para mostrar datos
         const api_data = await this.axios.get('/ordenes/leer_detalles_comida/' + item.ord_id.toString());
         this.ord_detail_food = api_data.data;
       },
       async detalle_orden_bebida(item){ //para mostrar datos
-        this.beb_dialog =true;
         const api_data = await this.axios.get('/ordenes/leer_detalles_bebida/' + item.ord_id.toString());
         this.ord_detail_drink = api_data.data;
       },
       async total_de_orden(item){ //para mostrar datos
-        this.beb_dialog =true;
         const api_data = await this.axios.get('/ordenes/total_orden/' + item.ord_id.toString());
         this.total_orden = api_data.data;
       },
